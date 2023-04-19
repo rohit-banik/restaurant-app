@@ -1,0 +1,10 @@
+.details{
+    position: relative;
+}
+.details .divider{
+    position: absolute;
+    height: calc(100% - 1rem);
+    width: 1px;
+    justify-self: center;
+    background-color: #cbd5e1;
+}

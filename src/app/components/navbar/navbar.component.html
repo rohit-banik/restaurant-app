@@ -1,0 +1,22 @@
+<nav
+  class="w-full h-screen md:h-20 fixed md:sticky top-0 p-4 z-10 md:shadow-md shadow-none bg-white flex flex-col md:flex-row"
+  [ngClass]="{ active: active }"
+>
+  <button
+    class="w-11 h-11 px-4 py-1 md:hidden rounded-full border-2 border-slate-400 absolute right-5 top-5 flex items-center justify-center"
+    (click)="active = !active"
+  >
+    <i class="bi bi-layout-wtf"></i>
+  </button>
+  <div
+    class="flex flex-col md:flex-row md:ml-auto h-full items-start md:items-center gap-3 md:gap-1 text-2xl md:text-base"
+  >
+    <a href="#" class="w-fit h-fit link px-2 py-1 text-slate-500 active">
+      Link
+    </a>
+    <a href="#" class="w-fit h-fit link px-2 py-1 text-slate-500"> Link1 </a>
+    <a href="#" class="w-fit h-fit link px-2 py-1 text-slate-500"> Link2 </a>
+    <a href="#" class="w-fit h-fit link px-2 py-1 text-slate-500"> Link3 </a>
+    <a href="#" class="w-fit h-fit link px-2 py-1 text-slate-500"> Link4 </a>
+  </div>
+</nav>

@@ -1,0 +1,63 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+::selection{
+    background-color: #21c45d33;
+    color: #22c55e;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+}
+body{
+    /* overflow-x: hidden; */
+    overflow-y: auto;
+   
+}
+body::before{
+    content: "";
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    pointer-events: none;
+    width: 100vw;
+    height: 100dvh;
+    background-image: url("/assets/images/bg-desktop.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+input{
+    padding: 0.5rem 0.75rem;
+    outline: none;
+}
+input::placeholder{
+    transition-property: opacity, visibility;
+    transition-duration: 0.25s;
+    transition-timing-function: ease-in;
+}
+input:focus::placeholder{
+    visibility: hidden;
+    opacity: 0;
+}
+.input-express{
+    box-shadow: 0px 0px 10px  #dce2e9;
+}
+.input-express:focus{
+    box-shadow: 0px 5px 10px #e1e7ee;
+}
+@media screen and (max-width: 639px) {
+    body::before{
+        background-image: url("/assets/images/bg-mobile.svg");
+
+    }
+}
