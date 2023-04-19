@@ -2,6 +2,7 @@ package com.jci.beans;
 
 import com.jci.models.Dish;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,7 @@ public class DishDao {
 
     public List<Dish> getAllDishes() {
         String sql = "select * from dish";
-        return jdbcTemplate.queryForObject(sql);
+        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Dish>(Dish.class));
     }
 //    public List<Dish> getAllDishes(){
 //        return dishes;
