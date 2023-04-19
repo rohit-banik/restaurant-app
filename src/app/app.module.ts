@@ -10,6 +10,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { PromptComponent } from './components/prompt/prompt.component';
 import { CreateComponent } from './views/create/create.component';
 import { EditComponent } from './views/edit/edit.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { EditComponent } from './views/edit/edit.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
