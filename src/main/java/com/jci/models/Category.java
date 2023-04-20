@@ -2,7 +2,7 @@ package com.jci.models;
 
 public class Category {
 //    variable declaration
-    private int categoryID;
+    private int categoryId;
     private String categoryName;
     private String categoryDesc;
     private String categoryImage;
@@ -11,20 +11,20 @@ public class Category {
     public Category() {
     }
 //    parameterised constructor
-    public Category(int categoryID, String categoryName, String categoryDesc, String categoryImage) {
-        this.categoryID = categoryID;
+    public Category(int categoryId, String categoryName, String categoryDesc, String categoryImage) {
+        this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDesc = categoryDesc;
         this.categoryImage = categoryImage;
     }
     // getter and setter methods
 
-    public int getCategoryID() { //getter method for categoryId
-        return categoryID;
+    public int getCategoryId() { //getter method for categoryId
+        return categoryId;
     }
 
-    public void setCategoryID(int categoryID) { //setter method for categoryId
-        this.categoryID = categoryID;
+    public void setCategoryId(int categoryId) { //setter method for categoryId
+        this.categoryId = categoryId;
     }
 
     public String getCategoryName() {   //getter method for categoryName
@@ -51,12 +51,4 @@ public class Category {
         this.categoryImage = categoryImage;
     }
 
-    public String getCategory() {
-        return "Category{" +
-                "categoryID=" + categoryID +
-                ", categoryName='" + categoryName + '\'' +
-                ", categoryDesc='" + categoryDesc + '\'' +
-                ", categoryImage='" + categoryImage + '\'' +
-                '}';
-    }
 }

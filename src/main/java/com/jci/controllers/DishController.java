@@ -1,11 +1,11 @@
 package com.jci.controllers;
 
+import com.google.gson.Gson;
 import com.jci.beans.DishDao;
 import com.jci.models.Dish;
+import com.jci.models.RelationalDishCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class DishController {
@@ -13,10 +13,15 @@ public class DishController {
     DishDao dao;
 
     @GetMapping("/menuitems")
-    public List<Dish> getAllDishes() { return dao.getAllDishes(); }
+    public String getAllDishes() {
+        return new Gson().toJson(dao.getAllDishes());
+    }
 
     @GetMapping("/menuitems/{id}")
-    public Dish getDish(@PathVariable int id) { return dao.getDishById(id); }
+    public String getDish(@PathVariable int id) { return new Gson().toJson(dao.getDishById(id)); }
+
+    @GetMapping("/menuitems/category/{id}")
+    public String getDishbyCategory(@PathVariable int id) { return new Gson().toJson(dao.getDishByCategory(id)); }
 
     @PostMapping("/menuitem")
     public void createDish(@RequestBody Dish dish) {

@@ -9,13 +9,15 @@ public class Dish {
     private String dishImage;
     private String dishNature;
     private int categoryId;
+    private int menuId;
+    private int isDeleted;
 
     // default constructor
     public Dish() {
     }
 
     //parameterised constructor
-    public Dish(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId) {
+    public Dish(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId, int menuId, int isDeleted) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.dishDesc = dishDesc;
@@ -23,6 +25,8 @@ public class Dish {
         this.dishImage = dishImage;
         this.dishNature = dishNature;
         this.categoryId = categoryId;
+        this.menuId = menuId;
+        this.isDeleted = isDeleted;
     }
 
     public int getDishId() {    //getter method for dishId
@@ -81,14 +85,12 @@ public class Dish {
         this.categoryId = categoryId;
     }
 
-    public String displayDish() {
-        return "Dish{" +
-                "dishId=" + dishId +
-                ", dishName='" + dishName + '\'' +
-                ", dishDesc='" + dishDesc + '\'' +
-                ", dishPrice=" + dishPrice +
-                ", dishImage='" + dishImage + '\'' +
-                ", dishNature='" + dishNature + '\'' +
-                '}';
-    }
+    public int getMenuId() { return menuId; }
+
+    public void setMenuId(int menuId) { this.menuId = menuId; }
+
+    public int getIsDeleted() { return isDeleted; }
+
+    public void setIsDeleted(int isDeleted) { this.isDeleted = isDeleted; }
+
 }

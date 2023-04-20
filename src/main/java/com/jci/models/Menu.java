@@ -51,12 +51,4 @@ public class Menu {
         this.menuImage = menuImage;
     }
 
-    public String displayMenu() {   //method to display all the menu contents
-        return "Menu{" +
-                "menuId=" + menuId +
-                ", menuName='" + menuName + '\'' +
-                ", menuDesc='" + menuDesc + '\'' +
-                ", menuImage='" + menuImage + '\'' +
-                '}';
-    }
 }
