@@ -1,1 +1,85 @@
-<p>edit works!</p>
+<div class="flex h-full w-full items-center justify-center">
+    <form
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-3 w-full md:shadow-md p-4 border-2 border-dashed border-slate-300 rounded-md bg-white"
+    >
+      <div
+        class="overflow-hidden col-span-2 md:col-span-1 !aspect-square border-2 border-dashed border-slate-300"
+      >
+        <img src="{{ imgUrl }}" class="w-full h-full object-cover" alt="" />
+      </div>
+      <div class="flex flex-col col-span-2 lg:col-span-3 pb-5">
+        <h1
+          class="px-4 py-5 text-emerald-400 bg-emerald-400 bg-opacity-20 md:text-5xl font-semibold lg:text-7xl md:my-6 lg:my-8 w-fit hidden md:block"
+        >
+          YOUR NEW DISH
+        </h1>
+        <label for="image-url" class="ml-2 text-slate-500 mb-1">Image URL</label>
+        <input
+          type="url"
+          id="image-url"
+          (keyup.enter)="setImageUrl($event)"
+          class="border-2 border-dashed border-slate-300 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
+        />
+      </div>
+      <div class="flex flex-col col-span-2 lg:col-span-2 pb-5">
+        <label for="dish-name" class="ml-2 text-slate-500 mb-1">Dish name</label>
+        <input
+          type="text"
+          id="dish-name"
+          class="border-2 border-dashed border-slate-300 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
+        />
+      </div>
+  
+      <div class="flex flex-col col-span-2 md:col-span-1 lg:col-span-2 pb-5">
+        <label for="dish-price" class="ml-2 text-slate-500 mb-1">Price</label>
+        <input
+          type="number"
+          id="dish-price"
+          class="border-2 border-dashed border-slate-300 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
+        />
+      </div>
+      <div class="flex flex-col col-span-2 md:col-span-3 pb-5">
+        <label for="description" class="ml-2 text-slate-500 mb-1"
+          >Description</label
+        >
+        <textarea
+          name="description"
+          id="description"
+          class="px-3 py-2 outline-none resize-y border-2 border-dashed border-slate-300 focus:border-emerald-400 transition-colors duration-300 rounded-md focus:text-emerald-400"
+          rows="4"
+        ></textarea>
+      </div>
+      <div class="flex flex-col col-span-full pb-5">
+        <label for="category" class="ml-2 text-slate-500 mb-1">Category</label>
+        <input
+          type="text"
+          id="category"
+          (keyup.enter)="createCategory($event)"
+          class="border-2 border-dashed border-slate-300 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400 lg:max-w-[35%]"
+        />
+        <div class="my-2">
+          <a
+            href="#"
+            (click)="selectCategory($event)"
+            *ngFor="let category of categories"
+            [attr.data-category]="category"
+            class="capitalize text-slate-400 category inline-flex px-[0.75rem] py-[0.125rem] rounded-full border-2 border-dashed border-slate-300 m-1 hover:bg-slate-300 hover:bg-opacity-20 transition-colors duration-300"
+            >{{ category
+            }}<i class="bi bi-x-lg ml-3" (click)="deleteCategory($event)"></i
+          ></a>
+        </div>
+      </div>
+      <div class="flex gap-2 col-span-full items-center text-lg">
+        <h1 class="text-emerald-400">Type:</h1>
+        <div class="px-2 flex items-center">
+          <input type="radio" class="w-4 h-4 accent-emerald-400 border-gray-300" name="foodtype" id="veg" />
+          <label for="veg" class="text-slate-600 ml-3"> Vegetarian </label>
+        </div>
+        <div class="px-2 flex items-center">
+          <input type="radio" class="w-4 h-4 accent-red-500 border-gray-300" name="foodtype" id="nonveg" />
+          <label for="nonveg" class="text-slate-600 ml-2 "> Non Vegetarian </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  

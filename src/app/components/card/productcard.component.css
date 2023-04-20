@@ -8,3 +8,7 @@
     justify-self: center;
     background-color: #cbd5e1;
 }
+.price-tag{
+    bottom: 0.75rem;
+    right: 1.25rem;
+}

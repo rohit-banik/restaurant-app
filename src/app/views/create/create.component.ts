@@ -16,32 +16,19 @@ export class CreateComponent {
     }
     this.imgUrl = value;
   }
-  createCategory(evt: Event) {
-    const inputCategory = evt.target as HTMLInputElement;
-    if (this.categories.includes(inputCategory.value)) {
-      return;
-    }
-    this.categories.push(inputCategory.value);
-    inputCategory.value = '';
-  }
   selectCategory(evt: Event) {
     evt.stopPropagation();
     evt.preventDefault();
     const elem = evt.target as HTMLAnchorElement;
+    if (elem.classList.contains('selected')) {
+      elem.classList.remove('selected');
+      return;
+    }
     document.querySelectorAll('.category').forEach((el) => {
       el.classList.remove('selected');
     });
     elem.classList.add('selected');
     // elem.getAttribute('data-category')
   }
-  deleteCategory(evt: Event) {
-    evt.stopPropagation();
-    evt.preventDefault();
-    const linkPar = (evt.currentTarget as HTMLElement).parentElement;
-    if (linkPar == null) {
-      return;
-    }
-    const category = linkPar.getAttribute('data-category');
-    this.categories = this.categories.filter((categ) => categ !== category);
-  }
+ 
 }

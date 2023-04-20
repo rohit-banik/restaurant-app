@@ -1,0 +1,65 @@
+<div class="flex h-full w-full items-center justify-center">
+  <form
+    class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-3 w-full md:shadow-md px-6 py-4 border-2 border-dashed border-slate-300 rounded-md bg-white"
+  >
+    <div
+      class="overflow-hidden col-span-2 md:col-span-1 !aspect-square border-2 border-dashed border-slate-400"
+    >
+      <img
+        src="/assets/images/recipe.svg"
+        class="w-full h-full object-cover"
+        alt=""
+      />
+    </div>
+    <div class="flex flex-col col-span-2 lg:col-span-3 pb-5">
+      <h1
+        class="px-4 py-5 text-emerald-400 bg-emerald-400 bg-opacity-20 md:text-5xl font-semibold lg:text-7xl md:mb-12 lg:mb-16 w-fit hidden md:block uppercase"
+      >
+        add category
+      </h1>
+      <label
+        for="category-url"
+        class="text-lg ml-2 md:mt-auto text-slate-500 mb-1"
+        >New Category URL</label
+      >
+      <input
+        type="text"
+        id="category-url"
+        class="border-2 border-dashed border-slate-400 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
+      />
+    </div>
+    <div class="flex flex-col col-span-2 lg:col-span-2 pb-5">
+      <label for="category" class="ml-2 mt-3 text-slate-500 mb-1"
+        >New Category</label
+      >
+      <input
+        type="text"
+        id="category"
+        (keyup.enter)="createCategory($event)"
+        class="border-2 border-dashed border-slate-400 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
+      />
+    </div>
+    <div class="col-span-full flex flex-col pb-5">
+      <label for="category-desc" class="ml-2 text-slate-500 mb-1"
+        >Category Description</label
+      >
+      <textarea
+        name="category-desc"
+        class="px-3 py-2 outline-none resize-y border-2 border-dashed border-slate-400 focus:border-emerald-400 transition-colors duration-300 rounded-md focus:text-emerald-400"
+        id="category-desc"
+        rows="4"
+      ></textarea>
+
+      <ul class="my-3">
+        <li
+          *ngFor="let category of categories"
+          [attr.data-category]="category"
+          class="cursor-pointer capitalize text-slate-500 category inline-flex px-[0.75rem] py-[0.125rem] rounded-full border-2 border-slate-500 m-1 hover:bg-slate-300 hover:bg-opacity-20 transition-colors duration-300"
+        >
+          {{ category
+          }}<i class="bi bi-x-lg ml-3" (click)="deleteCategory($event)"></i>
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>

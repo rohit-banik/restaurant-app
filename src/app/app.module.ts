@@ -10,6 +10,8 @@ import { AlertComponent } from './components/alert/alert.component';
 import { PromptComponent } from './components/prompt/prompt.component';
 import { CreateComponent } from './views/create/create.component';
 import { EditComponent } from './views/edit/edit.component';
+import { HomeComponent } from './views/home/home.component';
+import { CreateCategoryComponent } from './views/create-category/create-category.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { EditComponent } from './views/edit/edit.component';
     AlertComponent,
     PromptComponent,
     CreateComponent,
-    EditComponent
+    EditComponent,
+    HomeComponent,
+    CreateCategoryComponent
   ],
   imports: [
     BrowserModule,
