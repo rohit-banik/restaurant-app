@@ -8,7 +8,7 @@ public class RelationalDishCategory {
     private double dishPrice;
     private String dishImage;
     private String dishNature;
-    private int isDeleted;
+    private boolean isDeleted;
     private int categoryId;
     private String categoryName;
     private String categoryDesc;
@@ -21,7 +21,7 @@ public class RelationalDishCategory {
     // Constructor
     public RelationalDishCategory() {
     }
-    public RelationalDishCategory(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId, int isDeleted, String categoryName, String categoryDesc, String categoryImage, int menuId, String menuName, String menuDesc, String menuImage) {
+    public RelationalDishCategory(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId, boolean isDeleted, String categoryName, String categoryDesc, String categoryImage, int menuId, String menuName, String menuDesc, String menuImage) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.dishDesc = dishDesc;
@@ -96,11 +96,11 @@ public class RelationalDishCategory {
         this.categoryId = categoryId;
     }
 
-    public int getIsDeleted() {
+    public boolean getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(int isDeleted) {
+    public void setIsDeleted(boolean isDeleted) {
         this.isDeleted = isDeleted;
     }
 

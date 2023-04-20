@@ -1,27 +1,54 @@
 package com.jci.controllers;
 
-import com.google.gson.Gson;
 import com.jci.beans.CategoryDao;
 import com.jci.models.Category;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+@RestController
 public class CategoryController {
     @Autowired
     CategoryDao dao;
 
-    @GetMapping("/category")
-    public String getCategory() { return new Gson().toJson(dao.getAllCategory()); }
+    @GetMapping("/categories")
+    public @ResponseBody Map<String, Object> getCategory() {
+        List<Category> categories = dao.getAllCategory();
+        JSONObject resp = new JSONObject();
+        if(categories != null){
+        resp.put("msg", "Success");
+        resp.put("categories", categories);
+        }
+        else{
+            resp.put("err", "Couldn't fetch data");
+        }
+        return resp.toMap();
+    }
 
-    @GetMapping("/category/{id}")
-    public String getCategoryById(@PathVariable int id) { return new Gson().toJson(dao.getCategoryById(id)); }
+    @GetMapping("/categories/{id}")
+    public @ResponseBody Map<String, Object> getCategoryById(@PathVariable int id) {
+        Category ct = dao.getCategoryById(id);
+        JSONObject resp = new JSONObject();
+        if(ct != null){
+            resp.put("msg", "Success");
+            resp.put("category", ct);
+        }
+        else{
+            resp.put("err", "Couldn't fetch data");
+        }
+        return resp.toMap();
+    }
 
-    @PostMapping("/category")
-    public void createCategory(@RequestBody Category category) {
-        dao.addCategory(category);
+    @PostMapping("/categories")
+    public @ResponseBody Map<String, Object> createCategory(@RequestBody Category category) {
+        JSONObject msg = new JSONObject();
+        String[] resp = dao.addCategory(category);
+        msg.put(resp[0], resp[1]);
+        return msg.toMap();
     }
 
 }

@@ -1,11 +1,14 @@
 package com.jci.controllers;
 
-import com.google.gson.Gson;
 import com.jci.beans.DishDao;
 import com.jci.models.Dish;
 import com.jci.models.RelationalDishCategory;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class DishController {
@@ -13,24 +16,63 @@ public class DishController {
     DishDao dao;
 
     @GetMapping("/menuitems")
-    public String getAllDishes() {
-        return new Gson().toJson(dao.getAllDishes());
+    public @ResponseBody Map<String, Object> getAllDishes() {
+        List<Dish> dishes = dao.getAllDishes();
+        JSONObject resp = new JSONObject();
+        if(dishes != null){
+            resp.put("msg", "Success");
+            resp.put("dishes", dishes);
+        }
+        else{
+            resp.put("err", "Couldn't fetch data");
+        }
+        return resp.toMap();
     }
 
     @GetMapping("/menuitems/{id}")
-    public String getDish(@PathVariable int id) { return new Gson().toJson(dao.getDishById(id)); }
+    public @ResponseBody Map<String, Object> getDish(@PathVariable int id) {
+        RelationalDishCategory dish = dao.getDishById(id);
+        JSONObject resp = new JSONObject();
+        if(dish != null){
+            resp.put("msg", "Success");
+            resp.put("dish", dish);
+        }
+        else{
+            resp.put("err", "Couldn't fetch data");
+        }
+        return resp.toMap();
+    }
 
     @GetMapping("/menuitems/category/{id}")
-    public String getDishbyCategory(@PathVariable int id) { return new Gson().toJson(dao.getDishByCategory(id)); }
+    public @ResponseBody Map<String, Object> getDishbyCategory(@PathVariable int id) {
+        List<RelationalDishCategory> menuByCat = dao.getDishByCategory(id);
+        JSONObject resp = new JSONObject();
+        if(menuByCat != null){
+            resp.put("msg", "Success");
+            resp.put("dishes", menuByCat);
+        }
+        else{
+            resp.put("err", "Couldn't fetch data");
+        }
+        return resp.toMap();
+    }
 
-    @PostMapping("/menuitem")
-    public void createDish(@RequestBody Dish dish) {
-        dao.addDish(dish);
+    @PostMapping("/menuitems")
+    public @ResponseBody Map<String, Object> createDish(@RequestBody Dish dish) {
+        String[] resp = dao.addDish(dish);
+        return new JSONObject().put(resp[0], resp[1]).toMap();
     }
 
     @DeleteMapping("/menuitems/delete/{id}")
-    public void deleteDish(@PathVariable("id") int id) { dao.deleteDishById(id); }
+    public @ResponseBody Map<String, Object> deleteDish(@PathVariable("id") int id) {
+        String[] resp = dao.deleteDishById(id);
+        return new JSONObject().put(resp[0], resp[1]).toMap();
+
+    }
 
     @PutMapping("/menuitems/update/{id}")
-    public void updateDish(@PathVariable int id, @RequestBody Dish dish) { dao.updateDishById(id, dish);}
+    public @ResponseBody Map<String, Object> updateDish(@PathVariable int id, @RequestBody Dish dish) {
+        String[] resp = dao.updateDishById(id, dish);
+        return new JSONObject().put(resp[0], resp[1]).toMap();
+    }
 }
