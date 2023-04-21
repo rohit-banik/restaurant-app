@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,16 @@ public class MenuDao {
     List<Menu> categories = new ArrayList<Menu>();
 
     public MenuDao() {
-        String createTableSql = "CREATE TABLE menu(menuId int primary key, menuName varchar(255), menuDesc varchar(1000), menuImage varchar(255))";
+    }
+
+    @PostConstruct
+    public void createTable() {
+        String createTableSql = "CREATE TABLE if not exists menu (menuId int primary key, menuName varchar(255), menuDesc varchar(1000), menuImage varchar(255))";
+        int execQuery = jdbcTemplate.update(createTableSql);
+        if (execQuery!=0)
+            System.out.println("Menu table created");
+        else
+            System.out.println("Menu table already exists");
     }
 
     public List<Menu> getAllMenu() {

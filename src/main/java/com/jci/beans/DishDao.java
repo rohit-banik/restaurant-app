@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.PostConstruct;
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -18,6 +20,16 @@ public class DishDao {
 //    List<Dish> dishes = new ArrayList<Dish>();
 
     public DishDao() {
+    }
+
+    @PostConstruct
+    public void createTable () {
+        String createTableSql = "CREATE TABLE if not exists dish(dishId int primary key, dishName varchar(255), dishDesc varchar(1000), dishPrice decimal(10,2), dishImage varchar(255), dishNature varchar(255), isDeleted int default 0, categoryId int, menuId int);";
+        int execQuery = jdbcTemplate.update(createTableSql);
+        if (execQuery != 0)
+            System.out.println("Dish table created");
+        else
+            System.out.println("Dish table already exists");
     }
 
 
@@ -59,13 +71,6 @@ public class DishDao {
         }
         return relationalDishCategories;
 
-//        ArrayList<Integer> categoryDish = new ArrayList<Integer>();
-//        for(Dish dish:dishes) {
-//            if (dish.getCategoryId() == id) {
-//                categoryDish.add(id);
-//            }
-//        }
-//        return (Dish) dishes;
     }
 
     public String[] addDish(Dish dish) {

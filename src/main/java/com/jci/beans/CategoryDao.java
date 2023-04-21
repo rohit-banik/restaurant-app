@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,17 @@ public class CategoryDao {
     List<Category> categories = new ArrayList<Category>();
 
     public CategoryDao() {
-        String createTableSql = "CREATE TABLE category if not(categoryId int primary key, categoryName varchar(255), categoryDesc varchar(1000), categoryImage varchar(255), menuId int)";
-        jdbcTemplate.update(createTableSql);
+    }
+
+    @PostConstruct
+    public void createTable () {
+        String createTableSql = "CREATE TABLE if not exists category(categoryId int primary key, categoryName varchar(255), categoryDesc varchar(1000), categoryImage varchar(255), menuId int)";
+        int execQuery = jdbcTemplate.update(createTableSql);
+        if (execQuery != 0){
+            System.out.println("Category table created");
+        }
+        else
+            System.out.println("Category table already exists");
     }
 
     public List<Category> getAllCategory(){
