@@ -10,14 +10,14 @@ public class Dish {
     private String dishNature;
     private int categoryId;
     private int menuId;
-    private int isDeleted;
+    private boolean isDeleted = false;
 
     // default constructor
     public Dish() {
     }
 
     //parameterised constructor
-    public Dish(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId, int menuId, int isDeleted) {
+    public Dish(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId, int menuId, boolean isDeleted) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.dishDesc = dishDesc;
@@ -89,8 +89,8 @@ public class Dish {
 
     public void setMenuId(int menuId) { this.menuId = menuId; }
 
-    public int getIsDeleted() { return isDeleted; }
+    public boolean getIsDeleted() { return isDeleted; }
 
-    public void setIsDeleted(int isDeleted) { this.isDeleted = isDeleted; }
+    public void setIsDeleted(boolean isDeleted) { this.isDeleted = isDeleted; }
 
 }

@@ -1,8 +1,8 @@
 package com.jci.beans;
 
-import com.jci.models.Category;
 import com.jci.models.Menu;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -21,9 +21,16 @@ public class MenuDao {
         String createTableSql = "CREATE TABLE menu(menuId int primary key, menuName varchar(255), menuDesc varchar(1000), menuImage varchar(255))";
     }
 
-    public List<Menu> getAllMenu(){
-        String selectSqlbyId = "select * from menu";
-        return jdbcTemplate.query(selectSqlbyId, new BeanPropertyRowMapper<Menu>(Menu.class));
+    public List<Menu> getAllMenu() {
+        List<Menu> menus = null;
+        try {
+
+            String selectSqlbyId = "select * from menu";
+            menus =  jdbcTemplate.query(selectSqlbyId, new BeanPropertyRowMapper<Menu>(Menu.class));
+        } catch (DataAccessException exp) {
+            System.out.println("Error: "+exp.getMessage());
+        }
+        return menus;
     }
 
     public Menu getMenuById(@PathVariable int id) {
