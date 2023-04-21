@@ -17,7 +17,8 @@ public class CategoryDao {
     List<Category> categories = new ArrayList<Category>();
 
     public CategoryDao() {
-        String createTableSql = "CREATE TABLE category(categoryId int primary key, categoryName varchar(255), categoryDesc varchar(1000), categoryImage varchar(255), menuId int)";
+        String createTableSql = "CREATE TABLE category if not(categoryId int primary key, categoryName varchar(255), categoryDesc varchar(1000), categoryImage varchar(255), menuId int)";
+        jdbcTemplate.update(createTableSql);
     }
 
     public List<Category> getAllCategory(){
