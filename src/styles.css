@@ -6,7 +6,7 @@
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Inconsolata', monospace;
 }
 ::selection{
     background-color: #21c45d33;

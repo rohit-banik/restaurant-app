@@ -1,20 +1,85 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
+import {category} from 'src/app/types/dataTypes';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-create-category',
   templateUrl: './create-category.component.html',
-  styleUrls: ['./create-category.component.css']
+  styleUrls: ['./create-category.component.css'],
+  providers: [DataService],
 })
-export class CreateCategoryComponent {
-  categories: string[] = ['dessert', 'italian', 'mexican', 'spicy'];
-
-  createCategory(evt: Event) {
-    const inputCategory = evt.target as HTMLInputElement;
-    if (this.categories.includes(inputCategory.value)) {
+export class CreateCategoryComponent implements OnInit {
+  imgUrl: string = '/assets/images/recipe.svg';
+  categories: { categoryId: string; categoryName: string }[] = [];
+  constructor(private dataService: DataService) {}
+  categoryForm = new FormGroup({
+    categoryImage: new FormControl('', [Validators.required]),
+    categoryName: new FormControl('', [Validators.required]),
+    categoryDesc: new FormControl('', Validators.required),
+  });
+  ngOnInit(): void {
+    this.fetchCategories();
+  }
+  addUrl() {
+    const value = this.categoryForm.controls['categoryImage'].value;
+    if (value !== undefined && value !== null) {
+      this.imgUrl = value;
+    }
+  }
+  fetchCategories() {
+    this.dataService.getCategories().subscribe((res: any) => {
+      if (res.msg === undefined) {
+        return;
+      }
+      this.categories = res.categories.reduce(
+        (categs: any, category: category) => {
+          categs.push({
+            categoryId: category.categoryId,
+            categoryName: category.categoryName,
+          });
+          return categs;
+        },
+        []
+      );
+    });
+  }
+  createCategory() {
+    const value = this.categoryForm.controls['categoryName'].value;
+    if (value !== null && value !== undefined) {
+      this.categoryForm.controls['categoryName'].setValue(value.toLowerCase());
+    }
+    if (
+      this.categories.some((category: any) => {
+        return (
+          category.categoryName ===
+          this.categoryForm.controls['categoryName'].value
+        );
+      })
+    ) {
+      console.log('duplicate categories');
       return;
     }
-    this.categories.push(inputCategory.value);
-    inputCategory.value = '';
+    if (this.categoryForm.valid) {
+      this.dataService
+        .addCategory(
+          this.categoryForm.value as {
+            categoryImage: string;
+            categoryName: string;
+            categoryDesc: string;
+          }
+        )
+        .subscribe((res: any) => {
+          if (res.msg === undefined) {
+            return;
+          }
+          this.fetchCategories();
+          this.categoryForm.reset();
+          // Todo: Call alert info here
+          console.log(res.msg);
+        });
+    }
+
+    this.categoryForm.controls['categoryName'].setValue('');
   }
   deleteCategory(evt: Event) {
     evt.stopPropagation();
@@ -24,6 +89,7 @@ export class CreateCategoryComponent {
       return;
     }
     const category = linkPar.getAttribute('data-category');
-    this.categories = this.categories.filter((categ) => categ !== category);
+    console.log(category);
+    // this.categories = this.categories.filter((categ) => categ !== category);
   }
 }

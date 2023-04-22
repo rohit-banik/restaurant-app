@@ -2,12 +2,13 @@
   position: relative;
 }
 
-.category.selected {
+.category.selected,
+.menu.selected {
   color: #10b981;
   border-color: #10b981;
 }
-#illustr1{
-    top: -2rem;
-    right: -3rem;
-    transform: rotate(225deg);
+#illustr1 {
+  top: -2rem;
+  right: -3rem;
+  transform: rotate(225deg);
 }

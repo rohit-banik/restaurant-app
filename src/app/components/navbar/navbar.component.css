@@ -13,11 +13,11 @@
 .link::after {
   content: "";
   position: absolute;
-  bottom: 0.125rem;
+  bottom: 0.25rem;
   left: 50%;
   transform: translateX(-50%);
   width: 0%;
-  height: 1px;
+  height: 2px;
   background-color: #10b981;
   transition: all 0.5s ease-in-out;
 }

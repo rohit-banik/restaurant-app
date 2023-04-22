@@ -1,5 +1,6 @@
 <div class="flex h-full w-full items-center justify-center">
   <form
+    [formGroup]="dishForm"
     class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 md:gap-3 w-full md:shadow-md px-6 py-4 rounded-md bg-white"
   >
     <div
@@ -7,86 +8,177 @@
     >
       <img src="{{ imgUrl }}" class="w-full h-full object-cover" alt="" />
     </div>
-    <div class="flex flex-col col-span-2 lg:col-span-3 pb-5">
+    <div class="flex flex-col col-span-2 lg:col-span-3 pb-5 relative">
       <h1
         class="px-4 py-5 text-emerald-400 bg-emerald-400 bg-opacity-20 md:text-5xl font-semibold lg:text-7xl md:mb-12 lg:mb-16 w-fit hidden md:block uppercase"
       >
         YOUR NEW DISH
       </h1>
-      <label for="image-url" class="ml-2 text-slate-500 mb-1">Image URL</label>
+      <label for="image-url" class="md:mt-auto ml-2 text-slate-500 mb-1"
+        >Image URL</label
+      >
       <input
         type="url"
+        formControlName="dishImage"
         id="image-url"
         (keyup.enter)="setImageUrl($event)"
         class="border-2 border-dashed border-slate-400 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
       />
+      <span
+        *ngIf="
+          dishForm.get('dishImage')?.invalid &&
+          dishForm.get('dishImage')?.touched
+        "
+        class="text-red-500 absolute bottom-0 font-semibold text-sm left-2"
+        >Required</span
+      >
     </div>
-    <div class="flex flex-col col-span-2 lg:col-span-2 pb-5">
+    <div class="flex flex-col col-span-2 lg:col-span-2 pb-5 relative">
       <label for="dish-name" class="ml-2 text-slate-500 mb-1">Dish name</label>
       <input
         type="text"
+        formControlName="dishName"
         id="dish-name"
         class="border-2 border-dashed border-slate-400 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
       />
+      <span
+        *ngIf="
+          dishForm.get('dishName')?.invalid && dishForm.get('dishName')?.touched
+        "
+        class="text-red-500 absolute bottom-0 font-semibold text-sm left-2"
+        >Required</span
+      >
     </div>
 
-    <div class="flex flex-col col-span-2 md:col-span-1 lg:col-span-2 pb-5">
+    <div
+      class="flex flex-col col-span-2 md:col-span-1 lg:col-span-2 pb-5 relative"
+    >
       <label for="dish-price" class="ml-2 text-slate-500 mb-1">Price</label>
       <input
         type="number"
+        formControlName="dishPrice"
         id="dish-price"
+        min="0"
         class="border-2 border-dashed border-slate-400 focus:border-emerald-400 transition-colors duration-300 rounded-md bg-opacity-20 focus:text-emerald-400"
       />
+      <span
+        *ngIf="
+          dishForm.get('dishPrice')?.invalid &&
+          dishForm.get('dishPrice')?.touched
+        "
+        class="text-red-500 absolute bottom-0 font-semibold text-sm left-2"
+        >Required a value greater than 0</span
+      >
     </div>
-    <div class="flex flex-col col-span-2 md:col-span-full pb-5">
+    <div class="flex flex-col col-span-2 md:col-span-full pb-5 relative">
       <label for="description" class="ml-2 text-slate-500 mb-1"
         >Description</label
       >
       <textarea
+        formControlName="dishDesc"
         name="description"
         id="description"
         class="px-3 py-2 outline-none resize-y border-2 border-dashed border-slate-400 focus:border-emerald-400 transition-colors duration-300 rounded-md focus:text-emerald-400"
         rows="4"
       ></textarea>
+      <span
+        *ngIf="
+          dishForm.get('dishDesc')?.invalid && dishForm.get('dishDesc')?.touched
+        "
+        class="text-red-500 absolute bottom-0 font-semibold text-sm left-2"
+        >Required</span
+      >
     </div>
-    <div class="flex flex-col col-span-full pb-5">
+    <div class="flex flex-col col-span-full pb-5 relative">
       <h1
-      class="px-4 py-2 text-emerald-400 bg-emerald-400 bg-opacity-20 md:text-3xl uppercase font-semibold w-fit"
-    >
-      select category
-    </h1>
+        class="px-4 py-2 text-emerald-400 bg-emerald-400 bg-opacity-20 md:text-3xl uppercase font-semibold w-fit"
+      >
+        select category
+      </h1>
+
       <div class="my-3">
         <a
           href="#"
           (click)="selectCategory($event)"
           *ngFor="let category of categories"
-          [attr.data-category]="category"
-          class="capitalize text-slate-500 category inline-flex px-[0.75rem] py-[0.125rem] rounded-full border-2 border-slate-500 m-1 hover:bg-slate-300 hover:bg-opacity-20 transition-colors duration-300"
-          >{{ category
-          }}</a>
+          [attr.data-category]="category.categoryId"
+          class="capitalize text-slate-500 category inline-flex px-[0.75rem] py-[0.125rem] rounded-full border border-dashed border-slate-500 m-1 hover:bg-slate-300 hover:bg-opacity-20 transition-colors duration-300"
+          >{{ category.categoryName }}</a
+        >
       </div>
+      <span
+        *ngIf="dishForm.get('categoryId')?.invalid"
+        class="text-red-500 absolute bottom-0 font-semibold text-sm left-2"
+        >Required</span
+      >
+    </div>
+    <div class="flex flex-col col-span-full pb-5 relative">
+      <h1
+        class="px-4 py-2 text-emerald-400 bg-emerald-400 bg-opacity-20 md:text-3xl uppercase font-semibold w-fit"
+      >
+        select menu
+      </h1>
+
+      <div class="my-3">
+        <a
+          href="#"
+          (click)="selectMenu($event)"
+          *ngFor="let menu of menus"
+          [attr.data-menu]="menu.menuId"
+          class="capitalize text-slate-500 menu inline-flex px-[0.75rem] py-[0.125rem] rounded-full border border-dashed border-slate-500 m-1 hover:bg-slate-300 hover:bg-opacity-20 transition-colors duration-300"
+          >{{ menu.menuName }}</a
+        >
+      </div>
+      <span
+        *ngIf="dishForm.get('menuId')?.invalid"
+        class="text-red-500 absolute bottom-0 font-semibold text-sm left-2"
+        >Required</span
+      >
     </div>
 
-    <div class="flex gap-2 col-span-full items-center text-lg pb-5">
+    <div class="flex gap-2 col-span-full items-center text-lg pb-5 relative">
       <h1 class="text-emerald-400">Type:</h1>
       <div class="px-2 flex items-center">
         <input
+          formControlName="dishNature"
+          value="veg"
           type="radio"
           class="w-4 h-4 accent-emerald-400 border-gray-300"
-          name="foodtype"
+          name="dishNature"
+          checked
           id="veg"
         />
         <label for="veg" class="text-slate-600 ml-3"> Vegetarian </label>
       </div>
       <div class="px-2 flex items-center">
         <input
+          formControlName="dishNature"
+          value="nonveg"
           type="radio"
           class="w-4 h-4 accent-red-500 border-gray-300"
-          name="foodtype"
+          name="dishNature"
           id="nonveg"
         />
         <label for="nonveg" class="text-slate-600 ml-2"> Non Vegetarian </label>
       </div>
+      <span
+        *ngIf="
+          dishForm.get('dishNature')?.invalid &&
+          dishForm.get('dishNature')?.touched
+        "
+        class="text-red-500 absolute bottom-0 font-semibold text-sm left-2"
+        >Required</span
+      >
+    </div>
+    <div class="col-span-full">
+      <button
+        [disabled]="dishForm.invalid"
+        (click)="addDish()"
+        type="button"
+        class="px-4 py-1 border-2 border-dashed border-emerald-500 bg-emerald-500 bg-opacity-20 hover:bg-opacity-25 text-emerald-500 rounded-full"
+      >
+        Add
+      </button>
     </div>
   </form>
 </div>

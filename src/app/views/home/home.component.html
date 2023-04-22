@@ -1,8 +1,28 @@
-<div
-  class="px-3 py-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-6"
->
-  <app-productcard></app-productcard>
-  <app-productcard></app-productcard>
-  <app-productcard></app-productcard>
-  <app-productcard></app-productcard>
+<div class="px-4 py-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-14">
+  <a
+    href="#"
+    routerLink="/menu/{{ menu.menuId }}"
+    class="menu-card w-full bg-white p-4 border-2 border-slate-400 rounded-md"
+    *ngFor="let menu of menus"
+
+    [state]="{desc: menu.menuDesc, name: menu.menuName }"
+  >
+    <div
+      class="w-full aspect-video overflow-hidden border border-slate-400 rounded-md"
+    >
+      <img
+        src="{{ menu.menuImage }}"
+        class="w-full h-full object-contain object-center"
+        alt=""
+      />
+    </div>
+    <div class="w-full">
+      <h1
+        class="capitalize px-2 text-slate md:text-4xl bg-emerald-500 bg-opacity-20 text-emerald-500 w-fit mx-auto my-4"
+      >
+        {{ menu.menuName }}
+      </h1>
+    </div>
+    
+  </a>
 </div>

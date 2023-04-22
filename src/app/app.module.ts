@@ -12,6 +12,9 @@ import { CreateComponent } from './views/create/create.component';
 import { EditComponent } from './views/edit/edit.component';
 import { HomeComponent } from './views/home/home.component';
 import { CreateCategoryComponent } from './views/create-category/create-category.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MenuviewComponent } from './views/menuview/menuview.component';
 
 @NgModule({
   declarations: [
@@ -24,13 +27,16 @@ import { CreateCategoryComponent } from './views/create-category/create-category
     CreateComponent,
     EditComponent,
     HomeComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    MenuviewComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
