@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 @CrossOrigin
 @RestController
 public class CategoryController {
@@ -45,8 +47,16 @@ public class CategoryController {
 
     @PostMapping("/categories")
     public @ResponseBody Map<String, Object> createCategory(@RequestBody Category category) {
+        category.setCategoryId(UUID.randomUUID().toString());
         JSONObject msg = new JSONObject();
         String[] resp = dao.addCategory(category);
+        msg.put(resp[0], resp[1]);
+        return msg.toMap();
+    }
+    @PostMapping("/categories/{id}")
+    public @ResponseBody Map<String, Object> editCategory(@PathVariable String id, @RequestBody Category category) {
+        JSONObject msg = new JSONObject();
+        String[] resp = dao.editCategory(id, category);
         msg.put(resp[0], resp[1]);
         return msg.toMap();
     }

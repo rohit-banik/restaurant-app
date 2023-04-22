@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -23,8 +22,8 @@ public class DishDao {
     }
 
     @PostConstruct
-    public void createTable () {
-        String createTableSql = "CREATE TABLE if not exists dish(dishId int primary key, dishName varchar(255), dishDesc varchar(1000), dishPrice decimal(10,2), dishImage varchar(255), dishNature varchar(255), isDeleted int default 0, categoryId int, menuId int);";
+    public void createTable() {
+        String createTableSql = "CREATE TABLE if not exists dish(dishId varchar(40) primary key, dishName varchar(255), dishDesc varchar(1000), dishPrice decimal(10,2), dishImage varchar(255), dishNature varchar(255), isDeleted boolean default false, categoryId varchar(40), menuId varchar(40));";
         int execQuery = jdbcTemplate.update(createTableSql);
         if (execQuery != 0)
             System.out.println("Dish table created");
@@ -46,7 +45,7 @@ public class DishDao {
         return relationalDishCategories;
     }
 
-    public RelationalDishCategory getDishById(int id) {
+    public RelationalDishCategory getDishById(String id) {
         RelationalDishCategory category = null;
         try {
 
@@ -60,7 +59,7 @@ public class DishDao {
 
     }
 
-    public List<RelationalDishCategory> getDishByCategory(int id) {
+    public List<RelationalDishCategory> getDishByCategoryId(String id) {
         List<RelationalDishCategory> relationalDishCategories = null;
         try {
 
@@ -72,11 +71,24 @@ public class DishDao {
         return relationalDishCategories;
 
     }
+    public List<Dish> getDishByMenuId(String id) {
+        List<Dish> dishes = null;
+        try {
+
+            String selectSqlbyCategory = "select * from dish where menuId = ? and isDeleted = false";
+            System.out.println(id);
+            dishes = jdbcTemplate.query(selectSqlbyCategory, new BeanPropertyRowMapper<>(Dish.class), id);
+        } catch (DataAccessException exp) {
+            System.out.println("Error: " + exp.getMessage());
+        }
+        return dishes;
+
+    }
 
     public String[] addDish(Dish dish) {
         String[] resp = new String[2];
         try {
-            String insertSql = "insert into dish (dishId, dishName, dishDesc, dishPrice, dishImage, dishNature, categoryId, menuId isDeleted) values(?, ?, ? , ?, ?, ?, ?, ?, ?)";
+            String insertSql = "insert into dish (dishId, dishName, dishDesc, dishPrice, dishImage, dishNature, categoryId, menuId, isDeleted) values(?, ?, ? , ?, ?, ?, ?, ?, ?)";
             jdbcTemplate.update(insertSql, dish.getDishId(), dish.getDishName(), dish.getDishDesc(), dish.getDishPrice(), dish.getDishImage(), dish.getDishNature(), dish.getCategoryId(), dish.getMenuId(), dish.getIsDeleted());
             resp[0] = "msg";
             resp[1] = "Dish added!";
@@ -88,7 +100,7 @@ public class DishDao {
         return resp;
     }
 
-    public String[] deleteDishById(int id) {
+    public String[] deleteDishById(String id) {
         String[] resp = new String[2];
         try {
 
@@ -96,23 +108,23 @@ public class DishDao {
             jdbcTemplate.update(softDeleteSql, id);
             resp[0] = "msg";
             resp[1] = "Dish deleted";
-        }catch (DataAccessException exp){
-            System.out.println("Error: "+exp.getMessage());
+        } catch (DataAccessException exp) {
+            System.out.println("Error: " + exp.getMessage());
             resp[0] = "err";
             resp[1] = exp.getMessage();
         }
         return resp;
     }
 
-    public String[] updateDishById(int id, Dish dish) {
+    public String[] updateDishById(String id, Dish dish) {
         String[] resp = new String[2];
         try {
             String updateSql = "update dish set dishName = ?, dishDesc = ?, dishPrice = ?, dishImage = ?, dishNature = ?, categoryId = ? where dishId = ?";
-            jdbcTemplate.update(updateSql, dish.getDishName(), dish.getDishDesc(), dish.getDishPrice(), dish.getDishImage(),dish.getDishNature(), dish.getCategoryId(), id);
+            jdbcTemplate.update(updateSql, dish.getDishName(), dish.getDishDesc(), dish.getDishPrice(), dish.getDishImage(), dish.getDishNature(), dish.getCategoryId(), id);
             resp[0] = "msg";
-            resp[1] = "Dish with id "+ id + " updated!";
-        }catch (DataAccessException exp){
-            System.out.println("Error: "+exp.getMessage());
+            resp[1] = "Dish with id " + id + " updated!";
+        } catch (DataAccessException exp) {
+            System.out.println("Error: " + exp.getMessage());
             resp[0] = "err";
             resp[1] = exp.getMessage();
         }

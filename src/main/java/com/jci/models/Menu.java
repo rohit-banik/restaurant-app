@@ -2,7 +2,7 @@ package com.jci.models;
 
 public class Menu {
     // Variables
-    private int menuId;
+    private String menuId;
     private String menuName;
     private String menuDesc;
     private String menuImage;
@@ -11,7 +11,7 @@ public class Menu {
     public Menu() {
     }
     //parameterised constructor
-    public Menu(int menuId, String menuName, String menuDesc, String menuImage) {
+    public Menu(String menuId, String menuName, String menuDesc, String menuImage) {
         this.menuId = menuId;
         this.menuName = menuName;
         this.menuDesc = menuDesc;
@@ -19,11 +19,11 @@ public class Menu {
     }
 
     // getter and setter methods
-    public int getMenuId() {    //getter method for menuID
+    public String getMenuId() {    //getter method for menuID
         return menuId;
     }
 
-    public void setMenuId(int menuId) { //setter method for menuId
+    public void setMenuId(String menuId) { //setter method for menuId
         this.menuId = menuId;
     }
 

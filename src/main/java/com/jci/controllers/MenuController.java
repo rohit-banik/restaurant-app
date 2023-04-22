@@ -14,7 +14,7 @@ public class MenuController {
     @Autowired
     MenuDao dao;
 
-    @GetMapping("/menu")
+    @GetMapping("/menus")
 
     public @ResponseBody Map<String, Object> getMenu() {
         List<Menu> menus = dao.getAllMenu();
@@ -29,7 +29,7 @@ public class MenuController {
         return resp.toMap();
     }
 
-    @GetMapping("/menu/{id}")
+    @GetMapping("/menus/{id}")
     public @ResponseBody Map<String, Object> getMenuById(@PathVariable int id) {
         Menu menu = dao.getMenuById(id);
         JSONObject resp = new JSONObject();

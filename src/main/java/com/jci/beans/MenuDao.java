@@ -23,7 +23,7 @@ public class MenuDao {
 
     @PostConstruct
     public void createTable() {
-        String createTableSql = "CREATE TABLE if not exists menu (menuId int primary key, menuName varchar(255), menuDesc varchar(1000), menuImage varchar(255))";
+        String createTableSql = "CREATE TABLE if not exists menu (menuId varchar(4) primary key, menuName varchar(255), menuDesc varchar(1000), menuImage varchar(255))";
         int execQuery = jdbcTemplate.update(createTableSql);
         if (execQuery!=0)
             System.out.println("Menu table created");

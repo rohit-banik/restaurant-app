@@ -22,24 +22,22 @@ public class CategoryDao {
     }
 
     @PostConstruct
-    public void createTable () {
-        String createTableSql = "CREATE TABLE if not exists category(categoryId int primary key, categoryName varchar(255), categoryDesc varchar(1000), categoryImage varchar(255), menuId int)";
+    public void createTable() {
+        String createTableSql = "CREATE TABLE if not exists category(categoryId varchar(40) primary key, categoryName varchar(255), categoryDesc varchar(1000), categoryImage varchar(255))";
         int execQuery = jdbcTemplate.update(createTableSql);
-        if (execQuery != 0){
+        if (execQuery != 0) {
             System.out.println("Category table created");
-        }
-        else
+        } else
             System.out.println("Category table already exists");
     }
 
-    public List<Category> getAllCategory(){
+    public List<Category> getAllCategory() {
         List<Category> allCategories = null;
         String query = "select * from category";
-        try{
+        try {
 
             allCategories = jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Category.class));
-        }
-        catch (DataAccessException exp){
+        } catch (DataAccessException exp) {
             System.out.println(exp.getMessage());
         }
         return allCategories;
@@ -50,21 +48,37 @@ public class CategoryDao {
         String query = "select * from category where categoryId = ?";
         try {
             category = jdbcTemplate.queryForObject(query, new BeanPropertyRowMapper<Category>(Category.class), id);
-        }catch (DataAccessException exp){
+        } catch (DataAccessException exp) {
             System.out.println("Error: " + exp.getMessage());
         }
         return category;
+
+    }
+
+    public String[] editCategory(String id, Category newCat) {
+        String[] resp = new String[2];
+        try {
+            String query = "update category set categoryName = ?, categoryDesc = ?, categoryImage = ? where categoryId = ?";
+            jdbcTemplate.update(query, newCat.getCategoryName(), newCat.getCategoryDesc(), newCat.getCategoryImage(), id);
+            resp[0] = "msg";
+            resp[1] = "Successfully updated category.";
+        } catch (DataAccessException exp) {
+            System.out.println(exp.getMessage());
+            resp[0] = "err";
+            resp[1] = "Failed to update category.";
+        }
+        return resp;
     }
 
     public String[] addCategory(Category category) {
         String[] resp = new String[2];
         try {
-        String query = "insert into category (categoryId, categoryName, categoryDesc, categoryImage) values(?, ?, ? , ?)";
-        jdbcTemplate.update(query, category.getCategoryId(), category.getCategoryName(), category.getCategoryDesc(), category.getCategoryImage());
+            String query = "insert into category (categoryId, categoryName, categoryDesc, categoryImage) values(?, ?, ? , ?)";
+            jdbcTemplate.update(query, category.getCategoryId(), category.getCategoryName(), category.getCategoryDesc(), category.getCategoryImage());
             resp[0] = "msg";
             resp[1] = "Successfully created category.";
-        }
-        catch (DataAccessException exp){
+        } catch (DataAccessException exp) {
+            System.out.println(exp.getMessage());
             resp[0] = "err";
             resp[1] = "Failed to add category.";
         }

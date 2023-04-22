@@ -1,29 +1,33 @@
 package com.jci.models;
 
+import java.util.UUID;
+
 public class Category {
-//    variable declaration
-    private int categoryId;
+    //    variable declaration
+    private String categoryId;
     private String categoryName;
     private String categoryDesc;
     private String categoryImage;
 
-//    default constructor
+    //    default constructor
     public Category() {
     }
-//    parameterised constructor
-    public Category(int categoryId, String categoryName, String categoryDesc, String categoryImage) {
+
+    //    parameterised constructor
+    public Category(String categoryId, String categoryName, String categoryDesc, String categoryImage) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDesc = categoryDesc;
         this.categoryImage = categoryImage;
     }
+
     // getter and setter methods
 
-    public int getCategoryId() { //getter method for categoryId
+    public String getCategoryId() { //getter method for categoryId
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) { //setter method for categoryId
+    public void setCategoryId(String categoryId) { //setter method for categoryId
         this.categoryId = categoryId;
     }
 
@@ -51,4 +55,13 @@ public class Category {
         this.categoryImage = categoryImage;
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId='" + categoryId + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                ", categoryDesc='" + categoryDesc + '\'' +
+                ", categoryImage='" + categoryImage + '\'' +
+                '}';
+    }
 }

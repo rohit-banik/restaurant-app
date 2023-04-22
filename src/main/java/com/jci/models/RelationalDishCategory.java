@@ -2,18 +2,18 @@ package com.jci.models;
 
 public class RelationalDishCategory {
     // variable declaration
-    private int dishId;
+    private String dishId;
     private String dishName;
     private String dishDesc;
     private double dishPrice;
     private String dishImage;
     private String dishNature;
     private boolean isDeleted;
-    private int categoryId;
+    private String categoryId;
     private String categoryName;
     private String categoryDesc;
     private String categoryImage;
-    private int menuId;
+    private String menuId;
     private String menuName;
     private String menuDesc;
     private String menuImage;
@@ -21,7 +21,8 @@ public class RelationalDishCategory {
     // Constructor
     public RelationalDishCategory() {
     }
-    public RelationalDishCategory(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId, boolean isDeleted, String categoryName, String categoryDesc, String categoryImage, int menuId, String menuName, String menuDesc, String menuImage) {
+
+    public RelationalDishCategory(String dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, String categoryId, boolean isDeleted, String categoryName, String categoryDesc, String categoryImage, String menuId, String menuName, String menuDesc, String menuImage) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.dishDesc = dishDesc;
@@ -40,11 +41,11 @@ public class RelationalDishCategory {
     }
 
     // Getter & Setter
-    public int getDishId() {
+    public String getDishId() {
         return dishId;
     }
 
-    public void setDishId(int dishId) {
+    public void setDishId(String dishId) {
         this.dishId = dishId;
     }
 
@@ -88,11 +89,11 @@ public class RelationalDishCategory {
         this.dishNature = dishNature;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -128,11 +129,11 @@ public class RelationalDishCategory {
         this.categoryImage = categoryImage;
     }
 
-    public int getMenuId() {
+    public String getMenuId() {
         return menuId;
     }
 
-    public void setMenuId(int menuId) {
+    public void setMenuId(String menuId) {
         this.menuId = menuId;
     }
 

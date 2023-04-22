@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
+
 @CrossOrigin
 @RestController
 public class DishController {
@@ -30,7 +32,7 @@ public class DishController {
     }
 
     @GetMapping("/menuitems/{id}")
-    public @ResponseBody Map<String, Object> getDish(@PathVariable int id) {
+    public @ResponseBody Map<String, Object> getDish(@PathVariable String id) {
         RelationalDishCategory dish = dao.getDishById(id);
         JSONObject resp = new JSONObject();
         if(dish != null){
@@ -43,9 +45,9 @@ public class DishController {
         return resp.toMap();
     }
 
-    @GetMapping("/menuitems/category/{id}")
-    public @ResponseBody Map<String, Object> getDishbyCategory(@PathVariable int id) {
-        List<RelationalDishCategory> menuByCat = dao.getDishByCategory(id);
+    @GetMapping("/menuitems/menu/{id}")
+    public @ResponseBody Map<String, Object> getDishbyCategory(@PathVariable String id) {
+        List<Dish> menuByCat = dao.getDishByMenuId(id);
         JSONObject resp = new JSONObject();
         if(menuByCat != null){
             resp.put("msg", "Success");
@@ -59,19 +61,20 @@ public class DishController {
 
     @PostMapping("/menuitems")
     public @ResponseBody Map<String, Object> createDish(@RequestBody Dish dish) {
+        dish.setDishId(UUID.randomUUID().toString());
         String[] resp = dao.addDish(dish);
         return new JSONObject().put(resp[0], resp[1]).toMap();
     }
 
     @DeleteMapping("/menuitems/delete/{id}")
-    public @ResponseBody Map<String, Object> deleteDish(@PathVariable("id") int id) {
+    public @ResponseBody Map<String, Object> deleteDish(@PathVariable("id") String id) {
         String[] resp = dao.deleteDishById(id);
         return new JSONObject().put(resp[0], resp[1]).toMap();
 
     }
 
     @PutMapping("/menuitems/update/{id}")
-    public @ResponseBody Map<String, Object> updateDish(@PathVariable int id, @RequestBody Dish dish) {
+    public @ResponseBody Map<String, Object> updateDish(@PathVariable String id, @RequestBody Dish dish) {
         String[] resp = dao.updateDishById(id, dish);
         return new JSONObject().put(resp[0], resp[1]).toMap();
     }

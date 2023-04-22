@@ -2,14 +2,14 @@ package com.jci.models;
 
 public class Dish {
     // variable declaration
-    private int dishId;
+    private String dishId;
     private String dishName;
     private String dishDesc;
     private double dishPrice;
     private String dishImage;
     private String dishNature;
-    private int categoryId;
-    private int menuId;
+    private String categoryId;
+    private String menuId;
     private boolean isDeleted = false;
 
     // default constructor
@@ -17,7 +17,7 @@ public class Dish {
     }
 
     //parameterised constructor
-    public Dish(int dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, int categoryId, int menuId, boolean isDeleted) {
+    public Dish(String dishId, String dishName, String dishDesc, double dishPrice, String dishImage, String dishNature, String categoryId, String menuId, boolean isDeleted) {
         this.dishId = dishId;
         this.dishName = dishName;
         this.dishDesc = dishDesc;
@@ -29,11 +29,11 @@ public class Dish {
         this.isDeleted = isDeleted;
     }
 
-    public int getDishId() {    //getter method for dishId
+    public String getDishId() {    //getter method for dishId
         return dishId;
     }
 
-    public void setDishId(int dishId) { //setter method for dishId
+    public void setDishId(String dishId) { //setter method for dishId
         this.dishId = dishId;
     }
 
@@ -77,17 +77,17 @@ public class Dish {
         this.dishNature = dishNature;
     }
 
-    public int getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(int categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
-    public int getMenuId() { return menuId; }
+    public String getMenuId() { return menuId; }
 
-    public void setMenuId(int menuId) { this.menuId = menuId; }
+    public void setMenuId(String menuId) { this.menuId = menuId; }
 
     public boolean getIsDeleted() { return isDeleted; }
 
