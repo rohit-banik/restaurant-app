@@ -1,4 +1,10 @@
 <app-navbar></app-navbar>
-<div class="adaptive-container w-full px-3 py-4 z-[2] mt-11 md:mt-11">
+<div class="adaptive-container w-full px-3 py-4 z-[2] mt-11 md:mt-14">
+  <button
+    class="rounded-full flex items-center justify-center w-11 h-11 text-emerald-500 bg-white border-2 border-slate-200 fixed right-5 top-10 md:top-24 z-10"
+    (click)="back()"
+  >
+    <i class="bi bi-arrow-left"></i>
+  </button>
   <router-outlet></router-outlet>
 </div>

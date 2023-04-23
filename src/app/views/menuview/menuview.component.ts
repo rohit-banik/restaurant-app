@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
-import { category } from 'src/app/types/dataTypes';
+import { category, dish } from 'src/app/types/dataTypes';
 
 @Component({
   selector: 'app-menuview',
@@ -11,6 +11,7 @@ import { category } from 'src/app/types/dataTypes';
 })
 export class MenuviewComponent implements OnInit {
   dishes: any = [];
+  filteredDishes: any = [];
   alertMsg: string = '';
   alertState: boolean = false;
   id: string = '';
@@ -47,6 +48,7 @@ export class MenuviewComponent implements OnInit {
         return;
       }
       this.dishes = res.dishes;
+      this.filteredDishes = [...this.dishes];
     });
   }
   getCategoryName(id: string): string {
@@ -54,9 +56,17 @@ export class MenuviewComponent implements OnInit {
       (category: category) => category.categoryId === id
     )[0].categoryName;
   }
-  onDismissHandler(){
+  onDismissHandler() {
     this.alertState = false;
-    this.alertMsg = "";
+    this.alertMsg = '';
+  }
+  onSearch(evt: Event) {
+    const { value }: { value: string } = evt.target as HTMLInputElement;
+    this.filteredDishes = this.dishes.filter((dish: dish) => {
+      return (
+        dish.dishName.toLowerCase().includes(value) || dish.dishNature === value || dish.dishDesc.toLowerCase().includes(value)
+      );
+    });
   }
   onDeleteHandler(dishId: string) {
     this.dataService.delteDishById(dishId).subscribe((res: any) => {

@@ -49,12 +49,6 @@ input:focus::placeholder{
     visibility: hidden;
     opacity: 0;
 }
-.input-express{
-    box-shadow: 0px 0px 10px  #dce2e9;
-}
-.input-express:focus{
-    box-shadow: 0px 5px 10px #e1e7ee;
-}
 @media screen and (max-width: 639px) {
     body::before{
         background-image: url("/assets/images/bg-mobile.svg");

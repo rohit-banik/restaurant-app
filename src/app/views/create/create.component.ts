@@ -13,7 +13,7 @@ export class CreateComponent implements OnInit {
   imgUrl: string = '/assets/images/recipe.svg';
   categories: any = [];
   alertState: boolean = false;
-  alertMsg = '';
+  alertMsg: string = '';
   menus: any = [
     { menuId: '21006ce8-4b5b-4de5-b9d2-62155c900f4a', menuName: 'breakfast' },
     { menuId: '588c23b7-e428-4146-8a71-d5603cdc51fd', menuName: 'lunch' },

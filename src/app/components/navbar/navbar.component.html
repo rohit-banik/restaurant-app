@@ -1,5 +1,5 @@
 <nav
-  class="w-full h-screen md:h-20 fixed md:sticky top-0 p-4 z-10 md:shadow-md shadow-none bg-white flex flex-col md:flex-row"
+  class="w-full h-screen md:h-20 fixed md:sticky top-0 p-4 z-[11] md:shadow-md shadow-none bg-white flex flex-col md:flex-row"
   [ngClass]="{ active: active }"
 >
   <button
@@ -8,6 +8,9 @@
   >
     <i class="bi bi-layout-wtf"></i>
   </button>
+  <div class="h-16 md:h-full aspect-square mr-auto mb-20 md:mb-0">
+    <img src="/assets/images/logo-primary.svg" alt="">
+  </div>
   <div
     class="flex flex-col md:flex-row md:ml-auto h-full items-start md:items-center gap-3 md:gap-1 text-2xl md:text-base"
   >
@@ -17,7 +20,7 @@
       routerLink="/"
       routerLinkActive="active"
       [routerLinkActiveOptions]="{ exact: true }"
-      class="w-fit h-fit link px-2 py-1 text-slate-500 text-lg"
+      class="w-fit h-fit link px-2 py-1 text-slate-500 "
     >
       Home
     </a>
@@ -25,7 +28,7 @@
       href="#"
       routerLink="/add/dish"
       routerLinkActive="active"
-      class="w-fit h-fit link px-2 py-1 text-slate-500 text-lg"
+      class="w-fit h-fit link px-2 py-1 text-slate-500 "
     >
       Add Dish
     </a>
@@ -33,17 +36,10 @@
       href="#"
       routerLink="/add/category"
       routerLinkActive="active"
-      class="w-fit h-fit link px-2 py-1 text-slate-500 text-lg"
+      class="w-fit h-fit link px-2 py-1 text-slate-500 "
     >
       Add Category
     </a>
-    <a
-      href="#"
-      routerLink="/"
-      routerLinkActive="active"
-      class="w-fit h-fit link px-2 py-1 text-slate-500 text-lg"
-    >
-      Link4
-    </a>
+    
   </div>
 </nav>
