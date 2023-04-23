@@ -45,7 +45,7 @@ public class DishDao {
         return relationalDishCategories;
     }
 
-    public RelationalDishCategory getDishById(String id) {
+    public RelationalDishCategory getDishDetailsById(String id) {
         RelationalDishCategory category = null;
         try {
 
@@ -58,6 +58,19 @@ public class DishDao {
         return category;
 
     }
+    public Dish getDishById(String id) {
+        Dish category = null;
+        try {
+
+            String selectSqlbyId = "select * from dish where dishId = ? and isDeleted = false";
+            category = jdbcTemplate.queryForObject(selectSqlbyId, new BeanPropertyRowMapper<>(Dish.class), id);
+        } catch (DataAccessException exp) {
+            System.out.println("Error: " + exp.getMessage());
+        }
+        return category;
+
+    }
+
 
     public List<RelationalDishCategory> getDishByCategoryId(String id) {
         List<RelationalDishCategory> relationalDishCategories = null;
@@ -103,7 +116,6 @@ public class DishDao {
     public String[] deleteDishById(String id) {
         String[] resp = new String[2];
         try {
-
             String softDeleteSql = "update dish set isDeleted = true where dishId = ?";
             jdbcTemplate.update(softDeleteSql, id);
             resp[0] = "msg";

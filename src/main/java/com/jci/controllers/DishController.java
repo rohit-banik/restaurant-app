@@ -6,7 +6,6 @@ import com.jci.models.RelationalDishCategory;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -33,7 +32,7 @@ public class DishController {
 
     @GetMapping("/menuitems/{id}")
     public @ResponseBody Map<String, Object> getDish(@PathVariable String id) {
-        RelationalDishCategory dish = dao.getDishById(id);
+        Dish dish = dao.getDishById(id);
         JSONObject resp = new JSONObject();
         if(dish != null){
             resp.put("msg", "Success");
@@ -67,7 +66,7 @@ public class DishController {
     }
 
     @DeleteMapping("/menuitems/delete/{id}")
-    public @ResponseBody Map<String, Object> deleteDish(@PathVariable("id") String id) {
+    public @ResponseBody Map<String, Object> deleteDish(@PathVariable String id) {
         String[] resp = dao.deleteDishById(id);
         return new JSONObject().put(resp[0], resp[1]).toMap();
 
