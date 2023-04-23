@@ -11,6 +11,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class CreateCategoryComponent implements OnInit {
   imgUrl: string = '/assets/images/recipe.svg';
   categories: { categoryId: string; categoryName: string }[] = [];
+  alertState: boolean = false;
+  alertMsg: string = '';
   constructor(private dataService: DataService) {}
   categoryForm = new FormGroup({
     categoryImage: new FormControl('', [Validators.required]),
@@ -19,6 +21,10 @@ export class CreateCategoryComponent implements OnInit {
   });
   ngOnInit(): void {
     this.fetchCategories();
+  }
+  onDismissHandler(){
+    this.alertState = false;
+    this.alertMsg = ""
   }
   addUrl() {
     const value = this.categoryForm.controls['categoryImage'].value;
@@ -75,7 +81,8 @@ export class CreateCategoryComponent implements OnInit {
           this.fetchCategories();
           this.categoryForm.reset();
           // Todo: Call alert info here
-          console.log(res.msg);
+            this.alertMsg = res.msg
+            this.alertState = true
         });
     }
 

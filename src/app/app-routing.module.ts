@@ -5,6 +5,7 @@ import { CreateComponent } from './views/create/create.component';
 import { EditComponent } from './views/edit/edit.component';
 import { CreateCategoryComponent } from './views/create-category/create-category.component';
 import { MenuviewComponent } from './views/menuview/menuview.component';
+import { EditCategoryComponent } from './views/edit-category/edit-category.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,16 @@ const routes: Routes = [
       { path: 'category', component: CreateCategoryComponent },
     ],
   },
-  { path: 'edit-dish/:id', component: EditComponent },
+  {
+    path: 'edit',
+    children: [
+      {
+        path: 'dish/:id',
+        component: EditComponent,
+      },
+      { path: 'category/:id', component: EditCategoryComponent },
+    ],
+  },
   { path: 'menu/:id', component: MenuviewComponent },
 ];
 

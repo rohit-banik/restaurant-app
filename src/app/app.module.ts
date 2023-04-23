@@ -15,6 +15,7 @@ import { CreateCategoryComponent } from './views/create-category/create-category
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MenuviewComponent } from './views/menuview/menuview.component';
+import { EditCategoryComponent } from './views/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MenuviewComponent } from './views/menuview/menuview.component';
     HomeComponent,
     CreateCategoryComponent,
     MenuviewComponent,
+    EditCategoryComponent,
   ],
   imports: [
     BrowserModule,

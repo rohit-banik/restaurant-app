@@ -11,12 +11,15 @@ import { category } from 'src/app/types/dataTypes';
 })
 export class MenuviewComponent implements OnInit {
   dishes: any = [];
+  alertMsg: string = '';
+  alertState: boolean = false;
   id: string = '';
   categories: category[] = [];
   currentMenu: any = {
     name: 'Lorem Ipsum',
     desc: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet, quaerat illo quia hic voluptates est cum quibusdam commodi? Ducimus velit sit soluta ullam nobis corporis vel omnis eaque. Fugiat, fuga.',
   };
+
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute
@@ -26,9 +29,9 @@ export class MenuviewComponent implements OnInit {
     this.route.params.subscribe((param) => {
       this.id = param['id'];
     });
-    this.fetchDishes();
     this.currentMenu.name = window.history.state.name;
     this.currentMenu.desc = window.history.state.desc;
+    this.fetchDishes();
   }
   fetchCategories() {
     this.dataService.getCategories().subscribe((res: any) => {
@@ -50,5 +53,19 @@ export class MenuviewComponent implements OnInit {
     return this.categories.filter(
       (category: category) => category.categoryId === id
     )[0].categoryName;
+  }
+  onDismissHandler(){
+    this.alertState = false;
+    this.alertMsg = "";
+  }
+  onDeleteHandler(dishId: string) {
+    this.dataService.delteDishById(dishId).subscribe((res: any) => {
+      if (res.msg === undefined) {
+        return;
+      }
+      this.alertMsg = res.msg;
+      this.alertState = true;
+      this.fetchDishes();
+    });
   }
 }

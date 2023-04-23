@@ -1,1 +1,11 @@
-<p>alert works!</p>
+<div class="fixed bottom-5 w-fit flex items-center gap-x-5 z-10 right-2 rounded-md h-20 border-2 border-dashed border-emerald-400 bg-white p-3"
+*ngIf="isActive"
+>
+    <div class="aspect-square h-full overflow-hidden">
+        <img src="/assets/images/logo-primary.svg" class="w-full h-full object-cover" alt="">
+    </div>
+    <h1 class="text-emerald-400 bg-emerald-500 bg-opacity-20 px-4 py-3 text-lg">{{msg}}</h1>
+    <button class="p-3 text-emerald-500" (click)="onDismissClick()">
+        <i class="bi bi-x-lg"></i>
+    </button>
+</div>

@@ -181,4 +181,9 @@
       </button>
     </div>
   </form>
+  <app-alert
+    [msg]="alertMsg"
+    [isActive]="alertState"
+    (onDismiss)="onDismissHandler()"
+  ></app-alert>
 </div>

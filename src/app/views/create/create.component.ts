@@ -12,6 +12,8 @@ export class CreateComponent implements OnInit {
   constructor(private dataService: DataService) {}
   imgUrl: string = '/assets/images/recipe.svg';
   categories: any = [];
+  alertState: boolean = false;
+  alertMsg = '';
   menus: any = [
     { menuId: '21006ce8-4b5b-4de5-b9d2-62155c900f4a', menuName: 'breakfast' },
     { menuId: '588c23b7-e428-4146-8a71-d5603cdc51fd', menuName: 'lunch' },
@@ -89,6 +91,10 @@ export class CreateComponent implements OnInit {
 
     // elem.getAttribute('data-category')
   }
+  onDismissHandler(){
+    this.alertState = false;
+    this.alertMsg = ""
+  }
   addDish() {
     if (this.dishForm.valid) {
       this.dataService
@@ -114,9 +120,10 @@ export class CreateComponent implements OnInit {
           document
             .querySelectorAll('.menu')
             .forEach((el) => el.classList.remove('selected'));
-            this.imgUrl = "/assets/images/recipe.svg"
+          this.imgUrl = '/assets/images/recipe.svg';
           // Todo: Add alert
-          console.log(res.msg);
+          this.alertMsg = res.msg;
+          this.alertState = true;
         });
     }
   }
